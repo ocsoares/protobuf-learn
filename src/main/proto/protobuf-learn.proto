@@ -2,19 +2,46 @@ syntax = "proto3";
 
 option java_multiple_files = true;
 option java_package = "br.com.ocsoares";
-option java_outer_classname = "ProtobufLearn";
-option objc_class_prefix = "HLW";
+// option java_outer_classname = "ProtobufLearn";
+option java_outer_classname = "UserServiceOuterClass";
+option objc_class_prefix = "HLW"; // Prefixo para a Linguagem Objective-C (é OPCIONAL) !!
 
 package br.com.ocsoares;
 
-service ProtobufLearnService {
-  rpc send (ProtobufLearnRequest) returns (ProtobufLearnReply) {}
+import "google/protobuf/timestamp.proto";
+
+service UserService {
+  rpc register(UserRequest) returns (UserResponse) {}
 }
 
-message ProtobufLearnRequest {
+// Números usados para POSICIONAR os Dados corretamente em cada campo ao COMPACTAR e DESCOMPACTAR
+// OBS: Em "enum" o Número começa por 0, e em outros por 1 !!!
+enum Role {
+  TEACHER = 0;
+  POLICE = 1;
+  DIRECTOR = 3;
+}
+
+message Address {
+  string street = 1;
+  string cep = 2;
+  int32 houseNumber = 3;
+}
+
+// Também pode usar um "message" ÚNICO declarando dentro de uma "message" !!
+message UserRequest {
   string name = 1;
+  string email = 2;
+  string password = 3;
+  int32 age = 4;
+  bool isActive = 5;
+  Role role = 6;
+  repeated Address addresses = 7;
 }
 
-message ProtobufLearnReply {
-  string message = 1;
+message UserResponse {
+  string name = 1;
+  string email = 2;
+  int32 age = 3;
+  google.protobuf.Timestamp createdAt = 4;
 }
