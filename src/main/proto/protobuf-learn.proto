@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "br.com.ocsoares";
+option java_outer_classname = "ProtobufLearn";
+option objc_class_prefix = "HLW";
+
+package br.com.ocsoares;
+
+service ProtobufLearnService {
+  rpc send (ProtobufLearnRequest) returns (ProtobufLearnReply) {}
+}
+
+message ProtobufLearnRequest {
+  string name = 1;
+}
+
+message ProtobufLearnReply {
+  string message = 1;
+}
